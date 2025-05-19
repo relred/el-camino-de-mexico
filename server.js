@@ -19,7 +19,8 @@ db.serialize(() => {
       celular TEXT,
       correo TEXT,
       estado TEXT,
-      municipio TEXT
+      municipio TEXT,
+      subcoordinadores TEXT
     )
   `);
 });
@@ -31,18 +32,18 @@ app.use(express.static(path.join(__dirname))); // Sirve archivos HTML, CSS, JS e
 
 // Ruta para guardar datos del formulario
 app.post('/api/guardar', (req, res) => {
-  const { nombre, celular, correo, estado, municipio } = req.body;
+  const { nombre, celular, correo, estado, municipio, subcoordinadores } = req.body;
 
-  if (!nombre || !celular || !correo || !estado || !municipio) {
+  if (!nombre || !celular || !correo || !estado || !municipio || subcoordinadores === undefined) {
     return res.status(400).json({ error: 'Faltan campos' });
   }
 
   const stmt = db.prepare(`
-    INSERT INTO coordinadores (nombre, celular, correo, estado, municipio)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO coordinadores (nombre, celular, correo, estado, municipio, subcoordinadores)
+    VALUES (?, ?, ?, ?, ?, ?)
   `);
 
-  stmt.run(nombre, celular, correo, estado, municipio, function (err) {
+  stmt.run(nombre, celular, correo, estado, municipio, subcoordinadores, function (err) {
     if (err) {
       console.error('❌ Error al guardar:', err.message);
       return res.status(500).json({ error: 'Error al guardar datos' });

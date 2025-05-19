@@ -165,7 +165,10 @@
           <label for="municipio" class="form-label">Municipio</label>
           <input type="text" class="form-control" id="municipio" required>
         </div>
-
+        <div class="mb-3">
+          <label for="subcoordinadores" class="form-label">Número de subcoordinadores estimados a manejar</label>
+          <input type="number" class="form-control" id="subcoordinadores" required>
+        </div>
         <!-- Opción para selfie o archivo -->
         <div class="mb-3">
           <label class="form-label">Foto de frente (elige una opción):</label>
@@ -204,6 +207,7 @@
         correo: document.getElementById('correo').value,
         estado: document.getElementById('estado').value,
         municipio: document.getElementById('municipio').value,
+        subcoordinadores: document.getElementById('subcoordinadores').value,
       };
 
       fetch('/api/guardar', {
